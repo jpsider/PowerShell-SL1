@@ -7,6 +7,10 @@
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
     <Name>ScienceLogic-SL1</Name>
+    <PackageEntryPoint>Publish.ps1</PackageEntryPoint>
+    <DotNetVersion>v4.0</DotNetVersion>
+    <Bundle>False</Bundle>
+    <PackageAsExecutable>False</PackageAsExecutable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +33,8 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Publish.ps1" />
+    <Compile Include="ScienceLogic-SL1.Build.ps1" />
     <Compile Include="ScienceLogic-SL1.psd1" />
     <Compile Include="ScienceLogic-SL1.psm1" />
     <Compile Include="Scripts\Connect.ps1" />

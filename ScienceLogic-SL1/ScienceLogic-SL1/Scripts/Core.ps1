@@ -1,14 +1,17 @@
 Function Invoke-SL1Request {
 	<#
 	.Synopsis
-	This function does a call to SL1
+		This function does a call to SL1
+	
 	.Description
-	Invoke-SL1Request is an internal function that wraps PowerShell's invoke-WebRequest. 
-	Using a correct URI and Method, this function will use the previously-defined Credential 
+		Invoke-SL1Request is an internal function that wraps PowerShell's invoke-WebRequest. 
+		Using a correct URI and Method, this function will use the previously-defined Credential 
+	
 	.Parameter Method
-	Any of the following values: Get, Post, Put and Delete
+		Any of the following values: Get, Post, Put and Delete
+	
 	.Parameter URI
-	The URI is a URL used to retrieve content from SL1
+		The URI is a URL used to retrieve content from SL1
 	#>
 	[Cmdletbinding()]
 	Param (
@@ -38,10 +41,14 @@ Function Invoke-SL1Request {
 	}
 }
 
-<#
-
-#>
 Function Test-SL1Connected {
+<#
+	.Synopsis
+		Tests connectivity to ScienceLogic SL1
+
+	.Description
+		This function verifies if the connection
+#>
 	if (!$SL1Defaults.IsConnected) {
 		throw "Connect-SL1 needs to be called first"
 	}

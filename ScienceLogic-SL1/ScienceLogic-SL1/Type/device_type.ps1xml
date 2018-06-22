@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+    <Type>
+      <Name>device</Name>
+      <Members>
+        <ScriptProperty>
+          <Name>ID</Name>
+          <GetScriptBlock>"$( ($This.URI -split '/')[-1] )"</GetScriptBlock>
+        </ScriptProperty>
+      </Members>
+	</Type>
+</Types>
