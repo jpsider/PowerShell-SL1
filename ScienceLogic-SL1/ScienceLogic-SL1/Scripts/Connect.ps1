@@ -23,6 +23,7 @@ function Connect-SL1 {
 		The first command registers a credential.
 		The second command creates a connection to ScienceLogic and saves it in memory for subsequent calls to the environment.
 
+
 	#>
 	[CmdletBinding()]
 	Param(
