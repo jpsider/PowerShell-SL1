@@ -4,7 +4,7 @@
 RootModule = 'ScienceLogic-SL1.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0.0'
+ModuleVersion = '1.0.2'
 
 # ID used to uniquely identify this module
 GUID = 'f060cfd6-9865-4d61-99f7-daaa8e95a3b0'
@@ -87,7 +87,7 @@ PrivateData = @{
 		LicenseUri = 'https://github.com/trir262/PowerShell-SL1/LICENSE'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/josheinstein/PowerShell-EM7'
+        ProjectUri = 'https://github.com/trir262/PowerShell-SL1'
 
         # A URL to an icon representing this module.
         # IconUri = ''
@@ -96,7 +96,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        # Prerelease = 'beta'
+        #Prerelease = 'alpha'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update
         # RequireLicenseAcceptance = $false
@@ -115,6 +115,8 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
+
+
 
 
 
