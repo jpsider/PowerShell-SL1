@@ -79,10 +79,9 @@ task Archive {
     Copy-Item -Path .\ScienceLogic-SL1.psd1 -Destination "$Artifacts"
     Copy-Item -Path .\ScienceLogic-SL1.psm1 -Destination "$Artifacts"
     Copy-Item -Path .\Scripts -Destination "$Artifacts"
-	Copy-Item -Path .\Format -Destination "$Artifacts" -Recurse
-	Copy-Item -Path .\Type -Destination "$Artifacts" -Recurse
+	Copy-Item -Path .\xml -Destination "$Artifacts" -Recurse
 }
 
 task Publish {
-	Publish-Module -Path "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])" -NuGetApiKey 2bf0c731-045b-4eb6-9bfa-7357370fd28b
+	Publish-Module -Path "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])" -NuGetApiKey (Get-Content "$($BuildRoot)\..\..\PrivateData\APIKey.txt")
 }

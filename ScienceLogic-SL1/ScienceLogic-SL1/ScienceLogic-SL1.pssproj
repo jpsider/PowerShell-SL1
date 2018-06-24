@@ -36,7 +36,6 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ScienceLogic-SL1.Build.ps1" />
     <Compile Include="ScienceLogic-SL1.psd1" />
     <Compile Include="ScienceLogic-SL1.psm1" />
     <Compile Include="Scripts\private\ConvertTo-Device.ps1" />
