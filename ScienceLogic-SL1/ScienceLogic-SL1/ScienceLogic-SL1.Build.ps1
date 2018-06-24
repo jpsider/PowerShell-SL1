@@ -1,9 +1,10 @@
-task . InstallDependencies, Clean , Analyze, Test, UpdateVersion, Archive , Publish
+task . InstallDependencies, Clean , Analyze, Test, Archive , Publish, UpdateVersion
 
 task InstallDependencies {
     Install-Module Pester -Force
     Install-Module PSScriptAnalyzer -Force
 }
+
 task Analyze {
     $scriptAnalyzerParams = @{
         Path = "$BuildRoot\"
