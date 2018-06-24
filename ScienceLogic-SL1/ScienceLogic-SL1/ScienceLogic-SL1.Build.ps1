@@ -84,5 +84,5 @@ task Archive {
 }
 
 task Publish {
-	Publish-Module -Path "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])" -NuGetApiKey 44338662-d908-422a-b909-532d36eddc67
+	Publish-Module -Path "$BuildRoot\Artifacts\$((("$($BuildFile)" -split '\\')[-1] -split '\.')[0])" -NuGetApiKey 2bf0c731-045b-4eb6-9bfa-7357370fd28b
 }
