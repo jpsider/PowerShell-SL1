@@ -34,7 +34,7 @@ Describe 'Connect-SL1' {
 }
 
 Describe 'Get-SL1Device' {
-	Context 'Query by ID' {
+	Context 'Validate ParameterSetName ID' {
 		It 'Verifies a single device is returned' {
 			Connect-SL1 -URI $SL1URI -Credential $SL1Cred
 			( Get-SL1Device -Id 1944 | Measure-Object ).Count | Should be 1
@@ -44,11 +44,18 @@ Describe 'Get-SL1Device' {
 			Connect-SL1 -URI $SL1URI -Credential $SL1Cred
 			( Get-SL1Device -Id 995997 | Measure-Object ).Count | Should be 0
 		}
-<#		It 'gets all devices of an organization Get-SL1Device' {
-			Connect-SL1 -URI $SL1URI -Credentials $SL1Cred
-			( Get-SL1Device -Filter @{'filter.0.organization.eq'=4}).Count | Should -Not -Be 0
+
+		It 'verifies the Company' {
+			Connect-SL1 -URI $SL1URI -Credential $SL1Cred
+			( get-sl1Device -id 1954 ).Company | Should Not Be ""
 		}
-#>
+	}
+
+	Context 'Validate ParameterSetName Filter' {
+		It "verifies a correct organization id filter" {
+			Connect-SL1 -URI $SL1URI -Credential $SL1Cred
+			(Get-SL1Device -Filter 'filter.0.organization.eq=15').Count | Should be 6  #in our case of course
+		}
 	}
 }
 	

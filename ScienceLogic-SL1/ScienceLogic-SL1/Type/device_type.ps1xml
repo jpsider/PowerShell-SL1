@@ -3,10 +3,6 @@
     <Type>
       <Name>device</Name>
       <Members>
-        <ScriptProperty>
-          <Name>ID</Name>
-          <GetScriptBlock>"$( ($This.URI -split '/')[-1] )"</GetScriptBlock>
-        </ScriptProperty>
       </Members>
 	</Type>
 </Types>
