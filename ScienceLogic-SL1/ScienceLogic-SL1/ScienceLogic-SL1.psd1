@@ -4,7 +4,7 @@
 RootModule = 'ScienceLogic-SL1.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.1.3'
+ModuleVersion = '1.0.0'
 
 # ID used to uniquely identify this module
 GUID = 'f060cfd6-9865-4d61-99f7-daaa8e95a3b0'
@@ -96,7 +96,7 @@ PrivateData = @{
         # ReleaseNotes = ''
 
         # Prerelease string of this module
-        Prerelease = 'beta'
+        # Prerelease = 'beta'
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update
         # RequireLicenseAcceptance = $false
