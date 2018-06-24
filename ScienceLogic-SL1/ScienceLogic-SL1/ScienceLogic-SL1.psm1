@@ -1,4 +1,4 @@
-$SL1Defaults = [pscustomobject]@{
+$Script:SL1Defaults = [pscustomobject]@{
 	APIRoot = $null
 	Credential = $null
 	FormatResponse = $false
@@ -9,6 +9,10 @@ $SL1Defaults = [pscustomobject]@{
 	IsConnected = $false
 }
 
-. $PSScriptRoot\Scripts\Core.ps1
-. $PSScriptRoot\Scripts\Connect.ps1
-. $PSScriptRoot\Scripts\Device.ps1
+foreach ($File in Get-ChildItem -Path "$($PSScriptRoot)\Scripts\private" ) {
+	. $File.Fullname
+}
+
+foreach ($File in Get-ChildItem -Path "$($PSScriptRoot)\Scripts\public" ) {
+	. $File.Fullname
+}
