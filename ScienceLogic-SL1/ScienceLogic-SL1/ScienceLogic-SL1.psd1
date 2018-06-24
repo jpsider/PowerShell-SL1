@@ -4,7 +4,7 @@
 RootModule = 'ScienceLogic-SL1.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.19'
+ModuleVersion = '0.0.20'
 
 # ID used to uniquely identify this module
 GUID = 'f060cfd6-9865-4d61-99f7-daaa8e95a3b0'
@@ -115,6 +115,7 @@ PrivateData = @{
 # DefaultCommandPrefix = ''
 
 }
+
 
 
 

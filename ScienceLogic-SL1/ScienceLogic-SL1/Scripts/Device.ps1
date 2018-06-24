@@ -61,14 +61,14 @@ Function Get-SL1Device {
 							if ($json.total_matched -eq $json.total_returned) {
 								Write-Verbose "total_matched equals total_returned"
 								$Devices = ConvertFrom-Json ((Invoke-SL1Request Get "$($SL1Defaults.APIROOT)/api/device?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
-								foreach ($DeviceURI in (($Devices | gm -MemberType NoteProperty).name) ) {
+								foreach ($DeviceURI in (($Devices | Get-Member -MemberType NoteProperty).name) ) {
 									ConvertTo-Device -SL1Device $Devices.$DeviceURI -ID "$( ($DeviceURI -split '/')[-1])"
 								}
 							} else {
 								Write-Verbose "total_matched is more than total_returned"
 								for ($i=0; $i -lt $json.total_matched; $i += $Limit ) {
 									$Devices = ConvertFrom-Json ((Invoke-SL1Request Get "$($SL1Defaults.APIROOT)/api/device?$($Filter)&limit=$($Limit)&offset=$($i)&hide_filterinfo=1&extended_fetch=1").content)
-								    foreach ($DeviceURI in ($Devices | gm -MemberType NoteProperty).name ) {
+								    foreach ($DeviceURI in ($Devices | Get-Member -MemberType NoteProperty).name ) {
 									    ConvertTo-Json ($Devices.$DeviceURI)
 								    }
 								}
