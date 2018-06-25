@@ -25,6 +25,8 @@ Function Invoke-SL1Request {
 
 	Process {
 		Remove-Variable IWRError -ErrorAction SilentlyContinue 
+		$MyProgressPreference = $ProgressPreference
+		$ProgressPreference = 'SilentlyContinue'
 		try {
 			$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Script:SL1Defaults.Credential -ErrorAction SilentlyContinue -ErrorVariable IWRError
 			switch ($IWRResponse.StatusCode) {
@@ -38,5 +40,6 @@ Function Invoke-SL1Request {
 				{ $_ -eq [system.net.httpstatuscode]::Forbidden} { $_.Exception.Response }
 			}
 		}
+		$ProgressPreference = $MyProgressPreference
 	}
 }
