@@ -37,9 +37,16 @@ function Connect-SL1 {
 	)
 
 	Process {
-		$Script:SL1Defaults.APIRoot = $Uri
-		$Script:SL1Defaults.Credential = $Credential
-		if (!$Script:SL1Defaults.IsConnected) {
+		if ($Script:SL1Defaults.APIRoot -ne $uri -or $Script:SL1Defaults.Credential -ne $Credential ) {
+			$Script:SL1Defaults.APIRoot = $Uri
+			$Script:SL1Defaults.Credential = $Credential
+			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"
+			if ($Result.StatusCode -ne 200) {
+				$Script:SL1Defaults.Isconnected = $false
+				throw "Unsuccessful logon!"
+			} else { $Script:SL1Defaults.IsConnected = $true }
+
+		} else {
 			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"
 			if ($Result.StatusCode -ne 200) {
 				$Script:SL1Defaults.Isconnected = $false
