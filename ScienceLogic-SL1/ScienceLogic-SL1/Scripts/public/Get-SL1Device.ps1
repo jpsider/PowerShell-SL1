@@ -19,7 +19,7 @@ Function Get-SL1Device {
 	[CmdletBinding(DefaultParameterSetName='ID')]
 	Param(
 		[Parameter(Mandatory, Position=0, ValueFromPipeline, ParameterSetName='ID')]
-		[int64]$ID,
+		[int64]$Id,
 
 		[Parameter(Mandatory, Position=0, ValueFromPipeline, ParameterSetName='Filter')]
 		[string]$Filter,
@@ -39,14 +39,14 @@ Function Get-SL1Device {
 	Process {
 		switch ($PSCmdlet.ParameterSetName) {
 			'ID' {
-				$SL1Device = Invoke-SL1Request GET "$($Script:SL1Defaults.APIROOT)/api/device/$($ID)"
+				$SL1Device = Invoke-SL1Request GET "$($Script:SL1Defaults.APIROOT)/api/device/$($Id)"
 				switch ($SL1Device.StatusCode) {
 					{ $_ -eq [system.net.httpstatuscode]::OK } { 
 						$Device = ConvertFrom-Json $SL1Device.content
-						ConvertTo-Device -SL1Device $Device -ID $ID
+						ConvertTo-Device -SL1Device $Device -ID $Id
 					}
-					{ $_ -eq [system.net.httpstatuscode]::Forbidden } { Write-Warning "You are not authorized to get information on device with id $($ID)"}
-					{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { Write-Warning "Device with id $($ID) is not found in the SL1 system" }
+					{ $_ -eq [system.net.httpstatuscode]::Forbidden } { Write-Warning "You are not authorized to get information on device with id $($Id)"}
+					{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { Write-Warning "Device with id $($Id) is not found in the SL1 system" }
 				}
 			}
 			'Filter' {
@@ -54,11 +54,11 @@ Function Get-SL1Device {
 
 				switch ($SL1Devicequery.StatusCode) {
 					{ $_ -eq [system.net.httpstatuscode]::OK} {
-						$json = ConvertFrom-Json $SL1DeviceQuery.content
-						if ($json.total_matched -eq 0) {
+						$Json = ConvertFrom-Json $SL1DeviceQuery.content
+						if ($Json.total_matched -eq 0) {
 							Write-Warning "No devices found with filter $($Filter)"
 						} else {
-							if ($json.total_matched -eq $json.total_returned) {
+							if ($Json.total_matched -eq $Json.total_returned) {
 								Write-Verbose "total_matched equals total_returned"
 								$Devices = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/device?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
 								foreach ($DeviceURI in (($Devices | Get-Member -MemberType NoteProperty).name) ) {
@@ -66,7 +66,7 @@ Function Get-SL1Device {
 								}
 							} else {
 								Write-Verbose "total_matched is more than total_returned"
-								for ($i=0; $i -lt $json.total_matched; $i += $Limit ) {
+								for ($i=0; $i -lt $Json.total_matched; $i += $Limit ) {
 									$Devices = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/device?$($Filter)&limit=$($Limit)&offset=$($i)&hide_filterinfo=1&extended_fetch=1").content)
 								    foreach ($DeviceURI in ($Devices | Get-Member -MemberType NoteProperty).name ) {
 									    ConvertTo-Json ($Devices.$DeviceURI)
@@ -77,7 +77,7 @@ Function Get-SL1Device {
 						}
 					}
 					{ $_ -eq [system.net.httpstatuscode]::Forbidden }  { Write-Warning "You are not authorized to get information on devices"}
-					{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { Write-Warning "Device with id $($ID) is not found in the SL1 system" }
+					{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { Write-Warning "Device with id $($Id) is not found in the SL1 system" }
 				}
 
 			}

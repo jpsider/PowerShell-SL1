@@ -20,13 +20,13 @@ Function Invoke-SL1Request {
 		[String]$Method,
 		
 		[Parameter(Mandatory=$true, Position=1)]
-		[URI]$URI
+		[URI]$Uri
 	)
 
 	Process {
 		Remove-Variable IWRError -ErrorAction SilentlyContinue 
 		try {
-			$IWRResponse = Invoke-WebRequest -Method $Method -Uri $URI -MaximumRedirection 0 -Credential $Script:SL1Defaults.Credential -ErrorAction SilentlyContinue -ErrorVariable IWRError
+			$IWRResponse = Invoke-WebRequest -Method $Method -Uri $Uri -MaximumRedirection 0 -Credential $Script:SL1Defaults.Credential -ErrorAction SilentlyContinue -ErrorVariable IWRError
 			switch ($IWRResponse.StatusCode) {
 				{ $_ -eq [System.Net.HttpStatusCode]::OK} { $IWRResponse }
 				{ $_ -eq [System.Net.HttpStatusCode]::Redirect} { Invoke-SL1Request $Method "$($Script:SL1Defaults.APIRoot)$($IWRResponse.Headers['Location'])" -MaximumRedirection 0 -Credential $SILOCred -ErrorAction SilentlyContinue -ErrorVariable IWRError }

@@ -27,7 +27,7 @@ function Connect-SL1 {
 	[CmdletBinding()]
 	Param(
 		[Parameter(Mandatory, Position=0, ValueFromPipeline)]
-		[String]$URI,
+		[String]$Uri,
 
 		[Parameter(Mandatory, Position=1)]
 		[PSCredential]$Credential,
@@ -37,7 +37,7 @@ function Connect-SL1 {
 	)
 
 	Process {
-		$Script:SL1Defaults.APIRoot = $URI
+		$Script:SL1Defaults.APIRoot = $Uri
 		$Script:SL1Defaults.Credential = $Credential
 		if (!$Script:SL1Defaults.IsConnected) {
 			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"
