@@ -78,7 +78,7 @@ task Archive {
     $ModuleName = ($buildroot -split '\\')[-1]
     Copy-Item -Path .\ScienceLogic-SL1.psd1 -Destination "$Artifacts"
     Copy-Item -Path .\ScienceLogic-SL1.psm1 -Destination "$Artifacts"
-    Copy-Item -Path .\Scripts -Destination "$Artifacts"
+    Copy-Item -Path .\Scripts -Destination "$Artifacts" -Recurse
 	Copy-Item -Path .\xml -Destination "$Artifacts" -Recurse
 }
 

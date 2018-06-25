@@ -42,7 +42,8 @@ function Connect-SL1 {
 		if (!$Script:SL1Defaults.IsConnected) {
 			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"
 			if ($Result.StatusCode -ne 200) {
-				Test-SL1Connected
+				$Script:SL1Defaults.Isconnected = $false
+				throw "Unsuccessful logon!"
 			} else { $Script:SL1Defaults.IsConnected = $true }
 		}
 		if ($Passthru) {

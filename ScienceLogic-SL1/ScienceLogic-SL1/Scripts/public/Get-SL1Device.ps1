@@ -26,14 +26,14 @@ Function Get-SL1Device {
 
 		[Parameter(Position=1, ParameterSetName='Filter')]
 		[ValidateRange(0,([int64]::MaxValue))]
-		[int64]$Limit = $Script:SL1Defaults.DefaultLimit
+		[int64]$Limit
 	)
 
 	Begin {
 		Test-SL1Connected
-		#if ($PSCmdlet.ParameterSetName -eq 'Filter' -and $Limit -eq 0) {
-		#	$Limit = 
-		#}
+		if ($PSCmdlet.ParameterSetName -eq 'Filter' -and $Limit -eq 0) {
+			$Limit = $Script:SL1Defaults.DefaultLimit
+		}
 	}
 
 	Process {
