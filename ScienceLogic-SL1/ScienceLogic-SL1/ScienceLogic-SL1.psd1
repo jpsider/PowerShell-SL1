@@ -4,7 +4,7 @@
 RootModule = 'ScienceLogic-SL1.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.1.8'
+ModuleVersion = '1.2.0'
 
 # ID used to uniquely identify this module
 GUID = 'f060cfd6-9865-4d61-99f7-daaa8e95a3b0'
@@ -16,7 +16,7 @@ Author = 'Tom Robijns'
 CompanyName = 'Realdolmen'
 
 # Copyright statement for this module
-Copyright = '(c) 2018 Realdolmen'
+Copyright = ''
 
 # Description of the functionality provided by this module
 Description = 'PowerShell wrapper for ScienceLogic SL1 REST API.
@@ -59,7 +59,7 @@ FormatsToProcess = 'xml\ScienceLogic-SL1.Format.ps1xml'
 # NestedModules = @()
 
 # Functions to export from this module
-FunctionsToExport = @('Connect-SL1', 'Get-SL1Device')
+FunctionsToExport = @('Connect-SL1', 'Get-SL1Device', 'Get-SL1Organization')
 
 # Cmdlets to export from this module
 CmdletsToExport = @()
@@ -93,7 +93,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        # ReleaseNotes = ''
+        ReleaseNotes = '1.2.0 Added functinality to get Organization.'
 
         # Prerelease string of this module
         #Prerelease = 'alpha'

@@ -30,21 +30,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="en-us\" />
     <Folder Include="xml\" />
     <Folder Include="Scripts\private\" />
     <Folder Include="Scripts\public\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScienceLogic-SL1.Build.ps1" />
     <Compile Include="ScienceLogic-SL1.psd1" />
     <Compile Include="ScienceLogic-SL1.psm1" />
     <Compile Include="Scripts\private\ConvertTo-Device.ps1" />
+    <Compile Include="Scripts\private\ConvertTo-Organization.ps1" />
     <Compile Include="Scripts\private\Invoke-SL1Request.ps1" />
     <Compile Include="Scripts\private\Test-SL1Connected.ps1" />
     <Compile Include="Scripts\public\Connect-SL1.ps1" />
     <Compile Include="Scripts\public\Get-SL1Device.ps1" />
+    <Compile Include="Scripts\public\Get-SL1Organization.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="en-us\ScienceLogic-SL1-help.xml" />
     <Content Include="xml\ScienceLogic-SL1.Format.ps1xml" />
     <Content Include="xml\ScienceLogic-SL1.Types.ps1xml" />
   </ItemGroup>

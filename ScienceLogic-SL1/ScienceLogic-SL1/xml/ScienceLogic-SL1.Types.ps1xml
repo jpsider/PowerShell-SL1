@@ -2,7 +2,10 @@
 <Types>
   <Type>
     <Name>device</Name>
-    <Members>
-    </Members>
+    <Members />
+  </Type>
+  <Type>
+    <Name>organization</Name>
+    <Members />
   </Type>
 </Types>

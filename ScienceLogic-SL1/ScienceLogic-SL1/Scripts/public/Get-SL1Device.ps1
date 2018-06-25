@@ -9,12 +9,25 @@ Function Get-SL1Device {
 	.Parameter ID
 		An integer defining the ID of the ScienceLogic Device
 
+	.Parameter Filter
+		A Sciencelogic filter used to get a set of devices
+
+	.Parameter Limit
+		The amount of devices that need to be get in each batch.
+
 	.Example
-		Connect-SL1 -URI 'https://supprt.sciencelogic.com' -Credential ( Get-Credential )
-		Get-SL1Device -ID 1
+		PS C:\>Connect-SL1 -URI 'https://support.sciencelogic.com' -Credential ( Get-Credential )
+		PS C:\>Get-SL1Device -ID 1
 
 		The first command connects to the ScienceLogic platform.
 		The second command gets device with ID 1
+
+	.Example
+		PS C:\>Connect-SL1 -URI 'https://support.sciencelogic.com' -Credential ( Get-Credential )
+		PS C:\>Get-SL1Device -Filter 'filter.0.organization.eq=15'
+
+		The first command connects to the ScienceLogic platform.
+		The second command gets all device with for organization with id 15
 	#>
 	[CmdletBinding(DefaultParameterSetName='ID')]
 	Param(
