@@ -37,17 +37,17 @@ function Connect-SL1 {
 	)
 
 	Process {
-		$SL1Defaults.APIRoot = $URI
-		$SL1Defaults.Credential = $Credential
-		if (!$SL1Defaults.IsConnected) {
-			$Result = Invoke-SL1Request Get "$($SL1Defaults.APIRoot)/api/account/_self"
+		$Script:SL1Defaults.APIRoot = $URI
+		$Script:SL1Defaults.Credential = $Credential
+		if (!$Script:SL1Defaults.IsConnected) {
+			$Result = Invoke-SL1Request Get "$($Script:SL1Defaults.APIRoot)/api/account/_self"
 			if ($Result.StatusCode -ne 200) {
 				Test-SL1Connected
-			} else { $SL1Defaults.IsConnected = $true }
+			} else { $Script:SL1Defaults.IsConnected = $true }
 		}
 		if ($Passthru) {
 			[pscustomobject]@{
-				'IsConnected'=$SL1Defaults.IsConnected
+				'IsConnected'=$Script:SL1Defaults.IsConnected
 			}
 		}
 	}
