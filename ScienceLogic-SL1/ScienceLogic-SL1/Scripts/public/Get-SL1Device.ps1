@@ -51,7 +51,7 @@ Function Get-SL1Device {
 							$Devices = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/device?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
 							$Organizations = $Devices | Get-OrganizationForDevice 
 							foreach ($DeviceURI in (($Devices | Get-Member -MemberType NoteProperty).name) ) {
-								$Org = $Organizations | ? { $_.URI -eq ($Devices.$DeviceURI.Organization)}
+								$Org = $Organizations | Where-Object { $_.URI -eq ($Devices.$DeviceURI.Organization)}
 								ConvertTo-Device -SL1Device $Devices.$DeviceURI -ID "$( ($DeviceURI -split '/')[-1])" -CompanyName ( ($Organizations | Where-Object { $_.URI -eq ($Devices.$DeviceURI.organization) }).Company )
 							}
 						}

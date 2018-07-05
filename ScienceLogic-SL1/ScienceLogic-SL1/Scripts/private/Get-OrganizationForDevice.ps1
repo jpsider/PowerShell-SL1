@@ -10,7 +10,7 @@ function Get-OrganizationForDevice {
 		$Organizations = foreach ($DeviceURI in (($Devices | Get-Member -MemberType NoteProperty ).Name)) {
 			$devices.$DeviceURI.organization
 		} 
-		$OrgIDs = ($organizations |Group-Object).Name | % { ($_ -split '/')[-1] }
+		$OrgIDs = ($organizations |Group-Object).Name | ForEach-Object { ($_ -split '/')[-1] }
 		$OrgFilters = for ($i=0; $i -lt ($OrgIDs.Count); $i++ ) {
 			"filter.$($i)._id.eq=$($OrgIDs[$i])"
 		}
