@@ -3,7 +3,7 @@ function Get-OrganizationForDevice {
 	Param(
 		[Parameter(Mandatory, Position=1, ValueFromPipeline)]
 		[ValidateNotNullOrEmpty()]
-		[pscustomobject]$Devices
+		[psobject]$Devices
 	)
 
 	End {
@@ -11,10 +11,15 @@ function Get-OrganizationForDevice {
 			$devices.$DeviceURI.organization
 		} 
 		$OrgIDs = ($organizations |Group-Object).Name | ForEach-Object { ($_ -split '/')[-1] }
-		$OrgFilters = for ($i=0; $i -lt ($OrgIDs.Count); $i++ ) {
-			"filter.$($i)._id.eq=$($OrgIDs[$i])"
+
+		$Organizations = if ($OrgIDs.count -eq 1) {
+			Get-SL1Organization -Id $OrgIDs
+		} else {
+			$OrgFilters = for ($i=0; $i -lt ($OrgIDs.Count); $i++ ) {
+				"filter.$($i)._id.eq=$($OrgIDs[$i])"
+			}
+			Get-SL1Organization -Filter ($OrgFilters -join '&')
 		}
-		$Organizations = get-SL1Organization -Filter ($OrgFilters -join '&')
 		$Organizations
 	}
 }
