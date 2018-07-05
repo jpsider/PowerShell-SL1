@@ -7,7 +7,7 @@ function Get-OrganizationForDevice {
 	)
 
 	End {
-		$Organizations = foreach ($DeviceURI in (($Devices | gm -MemberType NoteProperty ).Name)) {
+		$Organizations = foreach ($DeviceURI in (($Devices | Get-Member -MemberType NoteProperty ).Name)) {
 			$devices.$DeviceURI.organization
 		} 
 		$OrgIDs = ($organizations |Group-Object).Name | % { ($_ -split '/')[-1] }

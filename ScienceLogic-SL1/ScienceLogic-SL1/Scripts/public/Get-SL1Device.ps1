@@ -52,7 +52,7 @@ Function Get-SL1Device {
 							$Organizations = $Devices | Get-OrganizationForDevice 
 							foreach ($DeviceURI in (($Devices | Get-Member -MemberType NoteProperty).name) ) {
 								$Org = $Organizations | ? { $_.URI -eq ($Devices.$DeviceURI.Organization)}
-								ConvertTo-Device -SL1Device $Devices.$DeviceURI -ID "$( ($DeviceURI -split '/')[-1])" -CompanyName ( ($Organizations | ? { $_.URI -eq ($Devices.$DeviceURI.organization) }).Company )
+								ConvertTo-Device -SL1Device $Devices.$DeviceURI -ID "$( ($DeviceURI -split '/')[-1])" -CompanyName ( ($Organizations | Where-Object { $_.URI -eq ($Devices.$DeviceURI.organization) }).Company )
 							}
 						}
 					}
