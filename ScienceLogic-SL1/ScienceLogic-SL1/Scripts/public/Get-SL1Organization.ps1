@@ -1,34 +1,4 @@
 Function Get-SL1Organization {
-	<#
-	.Synopsis
-		Gets organizations in ScienceLogic
-
-	.Description
-		The Get-SL1Organization cmdlet gets organizations in the ScienceLogic platform, referenced by the organization ID or by a filter.
-
-	.Parameter ID
-		An integer defining the ID of the ScienceLogic Organization
-
-	.Parameter Filter
-		A Sciencelogic filter used to get a set of organizations
-
-	.Parameter Limit
-		The amount of organizations that need to be get in each batch.
-
-	.Example
-		PS C:\>Connect-SL1 -URI 'https://support.sciencelogic.com' -Credential ( Get-Credential )
-		PS C:\>Get-SL1Organization -ID 1
-
-		The first command connects to the ScienceLogic platform.
-		The second command gets the organization with ID 1
-
-	.Example
-		PS C:\>Connect-SL1 -URI 'https://support.sciencelogic.com' -Credential ( Get-Credential )
-		PS C:\>Get-SL1Organization -Filter 'filter.0.billing_id.eq=B-1967354
-
-		The first command connects to the ScienceLogic platform.
-		The second command gets the organization with a billing id like B-1967354
-	#>
 	[CmdletBinding(DefaultParameterSetName='ID')]
 	Param(
 		[Parameter(Mandatory, Position=0, ValueFromPipeline, ParameterSetName='ID')]

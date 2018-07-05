@@ -38,6 +38,7 @@ Function Invoke-SL1Request {
 				{ $_ -eq [System.Net.HttpStatusCode]::Unauthorized} { $_.Exception.Response }
 				{ $_ -eq [System.Net.HttpStatusCode]::NotFound} { $_.Exception.Response }
 				{ $_ -eq [system.net.httpstatuscode]::Forbidden} { $_.Exception.Response }
+				default { $_ }
 			}
 		}
 		$ProgressPreference = $MyProgressPreference
