@@ -6,7 +6,9 @@ Function Test-SL1Connected {
 	.Description
 		This function verifies if the connection
 #>
-	if (!$Script:SL1Defaults.IsConnected) {
-		throw "Connect-SL1 needs to be called first"
+	if (! ($Script:SL1Defaults.IsConnected)) {
+		return $false
+	} else {
+		return $true
 	}
 }
