@@ -22,18 +22,14 @@ Function Get-SL1Device {
 	Process {
 		switch ($PSCmdlet.ParameterSetName) {
 			'ID' {
-				if ($id) {
-					$SL1Device = Invoke-SL1Request GET "$($Script:SL1Defaults.APIROOT)/api/device/$($Id)"
-					switch ($SL1Device.StatusCode) {
-						{ $_ -eq [system.net.httpstatuscode]::OK } { 
-							$Device = ConvertFrom-Json $SL1Device.content
-							ConvertTo-Device -SL1Device $Device -ID $Id -CompanyName (Get-SL1Organization -id (($Device.organization -split '/')[-1]))
-						}
-						{ $_ -eq [system.net.httpstatuscode]::Forbidden } { Write-Warning "You are not authorized to get information on device with id $($Id)"}
-						{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { Write-Warning "Device with id $($Id) is not found in the SL1 system" }
+				$SL1Device = Invoke-SL1Request GET "$($Script:SL1Defaults.APIROOT)/api/device/$($Id)"
+				switch ($SL1Device.StatusCode) {
+					{ $_ -eq [system.net.httpstatuscode]::OK } { 
+						$Device = ConvertFrom-Json $SL1Device.content
+						ConvertTo-Device -SL1Device $Device -ID $Id -CompanyName (Get-SL1Organization -id (($Device.organization -split '/')[-1]))
 					}
-				} else {
-					Get-SL1Device -Filter 'filter.0.name.contains=bru-in-sclo'
+					{ $_ -eq [system.net.httpstatuscode]::Forbidden } { Write-Warning "You are not authorized to get information on device with id $($Id)"}
+					{ $_ -eq [System.Net.HttpStatusCode]::NotFound } { Write-Warning "Device with id $($Id) is not found in the SL1 system" }
 				}
 			}
 			'Filter' {

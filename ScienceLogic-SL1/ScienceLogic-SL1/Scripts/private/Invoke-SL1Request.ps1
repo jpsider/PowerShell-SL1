@@ -1,18 +1,4 @@
 Function Invoke-SL1Request {
-	<#
-	.Synopsis
-		This function does a call to SL1
-	
-	.Description
-		Invoke-SL1Request is an internal function that wraps PowerShell's invoke-WebRequest. 
-		Using a correct URI and Method, this function will use the previously-defined Credential 
-	
-	.Parameter Method
-		Any of the following values: Get, Post, Put and Delete
-	
-	.Parameter URI
-		The URI is a URL used to retrieve content from SL1
-	#>
 	[Cmdletbinding()]
 	Param (
 		[Parameter(Mandatory=$true, Position=0)]

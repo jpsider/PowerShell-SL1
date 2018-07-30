@@ -59,7 +59,7 @@ FormatsToProcess = 'xml\ScienceLogic-SL1.Format.ps1xml'
 # NestedModules = @()
 
 # Functions to export from this module
-FunctionsToExport = @('Connect-SL1', 'Get-SL1Device', 'Get-SL1Organization')
+FunctionsToExport = @('Connect-SL1', 'Get-SL1Device', 'Get-SL1Organization', 'Invoke-SL1Request', 'ConvertTo-Organization','Test-SL1Connected','ConvertTo-Organization')
 
 # Cmdlets to export from this module
 CmdletsToExport = @()

@@ -1,10 +1,10 @@
 Function Get-SL1Organization {
-	[CmdletBinding(DefaultParameterSetName='ID')]
+	[CmdletBinding(DefaultParameterSetName='Filter')]
 	Param(
-		[Parameter(Mandatory, Position=0, ValueFromPipeline, ParameterSetName='ID')]
+		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='ID')]
 		[int64]$Id,
 
-		[Parameter(Mandatory, Position=0, ValueFromPipeline, ParameterSetName='Filter')]
+		[Parameter(Position=0, ValueFromPipeline, ParameterSetName='Filter')]
 		[string]$Filter,
 
 		[Parameter(Position=1, ParameterSetName='Filter')]
@@ -33,7 +33,11 @@ Function Get-SL1Organization {
 				}
 			}
 			'Filter' {
-				$SL1OrganizationQuery = Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/organization?$($Filter)&limit=$($Limit)"
+				if ($Filter -ne "") {
+					$SL1OrganizationQuery = Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/organization?$($Filter)&limit=$($Limit)"
+				} else {
+					$SL1OrganizationQuery = Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/organization?limit=$($Limit)"
+				}
 
 				switch ($SL1Organizationquery.StatusCode) {
 					{ $_ -eq [system.net.httpstatuscode]::OK} {
@@ -41,20 +45,10 @@ Function Get-SL1Organization {
 						if ($Json.total_matched -eq 0) {
 							Write-Warning "No organizations found with filter '$($Filter)'"
 						} else {
-							if ($Json.total_matched -eq $Json.total_returned) {
-								$Organizations = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/organization?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
-								foreach ($OrganizationURI in (($Organizations | Get-Member -MemberType NoteProperty).name) ) {
-									ConvertTo-Organization -SL1Organization $Organizations.$OrganizationURI -ID "$( ($OrganizationURI -split '/')[-1])"
-								}
-							} else {
-								for ($i=0; $i -lt $Json.total_matched; $i += $Limit ) {
-									$Organizations = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/organization?$($Filter)&limit=$($Limit)&offset=$($i)&hide_filterinfo=1&extended_fetch=1").content)
-								    foreach ($OrganizationURI in ($Organizations | Get-Member -MemberType NoteProperty).name ) {
-									    ConvertTo-Organization -SL1Organization $Organizations.$OrganizationURI -ID "$( ($OrganizationURI -split '/')[-1])"
-								    }
-								}
+							$Organizations = ConvertFrom-Json ((Invoke-SL1Request Get "$($Script:SL1Defaults.APIROOT)/api/organization?$($Filter)&limit=$($Limit)&hide_filterinfo=1&extended_fetch=1").Content)
+							foreach ($OrganizationURI in (($Organizations | Get-Member -MemberType NoteProperty).name) ) {
+								ConvertTo-Organization -SL1Organization $Organizations.$OrganizationURI -ID "$( ($OrganizationURI -split '/')[-1])"
 							}
-							
 						}
 					}
 					{ $_ -eq [system.net.httpstatuscode]::Forbidden }  { Write-Warning "You are not authorized to get information on organizations"}
